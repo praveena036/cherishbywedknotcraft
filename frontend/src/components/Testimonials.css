@@ -1,0 +1,214 @@
+.testimonials-section {
+  position: relative;
+
+  width: 100%;
+
+  padding:
+    115px
+    6%;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f9eee8,
+      #fffaf7
+    );
+}
+
+.testimonials-container {
+  width: min(
+    1300px,
+    100%
+  );
+
+  margin: 0 auto;
+}
+
+.testimonials-heading {
+  text-align: center;
+
+  max-width: 700px;
+
+  margin: 0 auto 50px;
+
+  color: #a17360;
+}
+
+.testimonials-heading h2 {
+  margin-top: 12px;
+
+  color: #4f392f;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      41px,
+      5vw,
+      62px
+    );
+
+  font-weight: 500;
+
+  line-height: 1.04;
+}
+
+.testimonials-heading h2 span {
+  display: block;
+
+  color: #a06f59;
+
+  font-style: italic;
+}
+
+.testimonials-heading p {
+  margin-top: 14px;
+
+  color: #806a61;
+
+  font-size: 13px;
+}
+
+.testimonial-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.testimonial-card {
+  padding: 28px;
+
+  border:
+    1px solid
+    rgba(
+      126,
+      91,
+      73,
+      0.08
+    );
+
+  border-radius: 21px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.9
+    );
+
+  box-shadow:
+    0 15px 35px
+    rgba(
+      72,
+      46,
+      35,
+      0.06
+    );
+}
+
+.testimonial-stars {
+  display: flex;
+
+  gap: 3px;
+
+  color: #be9554;
+}
+
+.testimonial-card > p {
+  min-height: 105px;
+
+  margin-top: 19px;
+
+  color: #695247;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+.testimonial-person {
+  display: flex;
+
+  align-items: center;
+
+  gap: 11px;
+
+  margin-top: 22px;
+
+  padding-top: 17px;
+
+  border-top:
+    1px solid
+    rgba(
+      126,
+      91,
+      73,
+      0.08
+    );
+}
+
+.testimonial-person > div {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #f0dfd7;
+
+  color: #916752;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 18px;
+}
+
+.testimonial-person strong,
+.testimonial-person small {
+  display: block;
+}
+
+.testimonial-person strong {
+  color: #5b4338;
+
+  font-size: 11px;
+}
+
+.testimonial-person small {
+  margin-top: 4px;
+
+  color: #a08e85;
+
+  font-size: 9px;
+}
+
+@media (max-width: 850px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .testimonials-section {
+    padding:
+      80px
+      18px;
+  }
+}
