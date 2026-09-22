@@ -31,15 +31,15 @@ SECRET_KEY = 'django-insecure-7udkzk=@!i(bnl=g)p7$=0a@3v&6vgi4%4j)rorl+^k@1*(e0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-AALLOWED_HOSTS = [
-    "cherishbywedknotcraft.onrender.com",
+ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
 ]
-render_hostname = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 
-if render_hostname:
-    ALLOWED_HOSTS.append(render_hostname)
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
