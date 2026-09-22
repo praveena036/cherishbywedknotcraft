@@ -1,10 +1,11 @@
-from django.conf import settings
+import json
+import os
+
+import resend
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from django.core.mail import send_mail
-
-import json
 
 from .models import ContactMessage
 
@@ -24,28 +25,41 @@ def create_contact_message(request):
 
         if not name:
             return JsonResponse(
-                {"success": False, "message": "Name is required."},
+                {
+                    "success": False,
+                    "message": "Name is required.",
+                },
                 status=400,
             )
 
         if not email:
             return JsonResponse(
-                {"success": False, "message": "Email is required."},
+                {
+                    "success": False,
+                    "message": "Email is required.",
+                },
                 status=400,
             )
 
         if not occasion:
             return JsonResponse(
-                {"success": False, "message": "Occasion is required."},
+                {
+                    "success": False,
+                    "message": "Occasion is required.",
+                },
                 status=400,
             )
 
         if not message:
             return JsonResponse(
-                {"success": False, "message": "Message is required."},
+                {
+                    "success": False,
+                    "message": "Message is required.",
+                },
                 status=400,
             )
 
+        # Save enquiry in database
         contact_message = ContactMessage.objects.create(
             name=name,
             email=email,
@@ -54,31 +68,51 @@ def create_contact_message(request):
             message=message,
         )
 
+        # Resend API key
+        resend.api_key = os.getenv("RESEND_API_KEY")
+
+        if not resend.api_key:
+            return JsonResponse(
+                {
+                    "success": False,
+                    "message": "Email service is not configured.",
+                },
+                status=500,
+            )
+
         subject = f"New Contact Enquiry - {occasion}"
 
-        email_body = f"""
-New enquiry received from Cherish By Wed Knot Craft website.
+        html_body = f"""
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <h2>New Contact Enquiry</h2>
 
-Name: {name}
-Email: {email}
-Phone: {phone or "Not provided"}
-Occasion: {occasion}
+            <p><strong>Name:</strong> {name}</p>
+            <p><strong>Email:</strong> {email}</p>
+            <p><strong>Phone:</strong> {phone or "Not provided"}</p>
+            <p><strong>Occasion:</strong> {occasion}</p>
 
-Message:
-{message}
+            <h3>Message</h3>
+            <p>{message}</p>
 
-----------------------------------------
-Cherish By Wed Knot Craft
+            <hr>
+
+            <p>
+                <strong>Cherish By Wed Knot Craft</strong><br>
+                Wedding Invitations
+            </p>
+        </div>
         """
 
-        send_mail(
-            subject=subject,
-            message=email_body,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[
-                settings.EMAIL_HOST_USER,
-            ],
-            fail_silently=False,
+        # Send email using Resend
+        resend.Emails.send(
+            {
+                "from": "Cherish By Wed Knot Craft <onboarding@resend.dev>",
+                "to": [
+                    "cherishbywedknotcraft@gmail.com"
+                ],
+                "subject": subject,
+                "html": html_body,
+            }
         )
 
         return JsonResponse(
