@@ -26,12 +26,16 @@ load_dotenv(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7udkzk=@kg$erdq@)6xpi!an6lmy)hr+lwggd86xjdr**wse@2'
+SECRET_KEY = 'django-insecure-7udkzk=@!i(bnl=g)p7$=0a@3v&6vgi4%4j)rorl+^k@1*(e0e-7c^dwf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+AALLOWED_HOSTS = [
+    "cherishbywedknotcraft.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition
